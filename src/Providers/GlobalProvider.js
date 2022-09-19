@@ -36,7 +36,19 @@ const GlobalProvider = ({children}) => {
         }
       })
     ) {
-      setUserData([...userData, data]);
+      const dataFirstName = data.firstName.trim().toLowerCase();
+      const dataLastName = data.lastName.trim().toLowerCase();
+      const dataAge = data.age.trim().toLowerCase();
+      const dataId = data.id.trim().toLowerCase();
+      setUserData([
+        ...userData,
+        {
+          firstName: dataFirstName,
+          lastName: dataLastName,
+          age: dataAge,
+          id: dataId,
+        },
+      ]);
     } else {
       Alert.alert('User Record Already exists');
     }
