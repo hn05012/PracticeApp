@@ -15,12 +15,22 @@ const GlobalProvider = ({children}) => {
 
   const SetData = data => {
     if (
+      // checks if user record already exists in array of records
       !userData.some(element => {
+        // converting all strings to lowercase and removing spaces before performing the check
+        const elementFirstName = element.firstName.trim().toLowerCase();
+        const elementLastName = element.lastName.trim().toLowerCase();
+        const elementAge = element.age.trim().toLowerCase();
+        const elementId = element.id.trim().toLowerCase();
+        const dataFirstName = data.firstName.trim().toLowerCase();
+        const dataLastName = data.lastName.trim().toLowerCase();
+        const dataAge = data.age.trim().toLowerCase();
+        const dataId = data.id.trim().toLowerCase();
         if (
-          element.firstName === data.firstName &&
-          element.lastName === data.lastName &&
-          element.id === data.id &&
-          element.age === data.age
+          elementFirstName === dataFirstName &&
+          elementLastName === dataLastName &&
+          elementId === dataId &&
+          elementAge === dataAge
         ) {
           return true;
         }
@@ -37,6 +47,7 @@ const GlobalProvider = ({children}) => {
   };
 
   const DeleteUserInstance = id => {
+    // deletes user record based on user.id
     setUserData(current =>
       current.filter(user => {
         return user.id !== id;

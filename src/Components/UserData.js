@@ -8,6 +8,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 const UserRowItem = props => {
+  // parent container that encapsulates checkbox, user record details and delete button
   return (
     <ScrollView>
       <View style={props.style}>{props.children}</View>
@@ -16,7 +17,7 @@ const UserRowItem = props => {
 };
 
 const CustomCheckBox = props => {
-  return <View>{props.children}</View>;
+  return <View>{props.children}</View>; // children can have various types of checkboxes
 };
 
 const UserText = props => {
@@ -35,7 +36,7 @@ const CustomIcon = props => {
     <View style={props.style} pointerEvents={props.pointerEvents}>
       {props.children}
     </View>
-  );
+  ); // children can have various types of icons
 };
 
 export default function UserData({navigation}) {

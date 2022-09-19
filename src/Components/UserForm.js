@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   Text,
@@ -12,27 +13,39 @@ import {Formik} from 'formik';
 import * as yup from 'yup';
 
 const userValidationSchema = yup.object().shape({
-  firstName: yup.string().required('First Name is required'),
-  lastName: yup.string().required('Last Name is required'),
-  age: yup.string().max(3).required('age is required'),
+  firstName: yup
+    .string()
+    .required('First Name is required')
+    .label('First Name'),
+  lastName: yup.string().required('Last Name is required').label('Last Name'),
+  age: yup.string().max(3).required('age is required').label('Age'),
   id: yup
     .string()
     .max(10)
-    .required('7 digit student Id is required, format: az01234'),
+    .required('7 digit student Id is required, format: az01234')
+    .label('Student Id'),
 });
 
 export default function UserForm({navigation}) {
-  const {userData, SetData} = useGlobal();
+  const {SetData} = useGlobal();
   return (
     <View style={styles.Container}>
       <Formik
         validationSchema={userValidationSchema}
-        initialValues={{firstName: '', lastName: '', age: null, id: ''}}
+        initialValues={{firstName: '', lastName: '', age: '', id: ''}}
         onSubmit={values => {
           SetData(values);
           navigation.navigate('UserData');
         }}>
-        {({handleChange, handleBlur, handleSubmit, values}) => (
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          setFieldValue,
+          errors,
+          touched,
+          values,
+        }) => (
           <>
             <TextInput
               placeholderTextColor="grey"
@@ -43,6 +56,9 @@ export default function UserForm({navigation}) {
               value={values.firstName}
               style={styles.textInput}
             />
+            {errors.firstName && touched.firstName ? (
+              <Text style={{color: 'grey'}}>{errors.firstName}</Text>
+            ) : null}
             <TextInput
               placeholderTextColor="grey"
               name="lastName"
@@ -52,6 +68,9 @@ export default function UserForm({navigation}) {
               value={values.lastName}
               style={styles.textInput}
             />
+            {errors.lastName && touched.lastName ? (
+              <Text style={{color: 'grey'}}>{errors.lastName}</Text>
+            ) : null}
             <TextInput
               placeholderTextColor="grey"
               name="age"
@@ -61,6 +80,9 @@ export default function UserForm({navigation}) {
               value={values.age}
               style={styles.textInput}
             />
+            {errors.age && touched.age ? (
+              <Text style={{color: 'grey'}}>{errors.age}</Text>
+            ) : null}
             <TextInput
               placeholderTextColor="grey"
               name="id"
@@ -70,6 +92,9 @@ export default function UserForm({navigation}) {
               value={values.id}
               style={styles.textInput}
             />
+            {errors.id && touched.id ? (
+              <Text style={{color: 'grey'}}>{errors.id}</Text>
+            ) : null}
             <Button onPress={handleSubmit} title="Submit" />
           </>
         )}
