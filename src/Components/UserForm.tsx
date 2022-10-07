@@ -12,19 +12,35 @@ import {useGlobal} from '../Providers/GlobalProvider';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 
-const userValidationSchema = yup.object().shape({
-  firstName: yup
-    .string()
-    .required('First Name is required')
-    .label('First Name'),
-  lastName: yup.string().required('Last Name is required').label('Last Name'),
-  age: yup.string().max(3).required('age is required').label('Age'),
-  id: yup
-    .string()
-    .max(10)
-    .required('7 digit student Id is required, format: az01234')
-    .label('Student Id'),
-});
+const userValidationSchema = yup
+  .object()
+  .shape({
+    firstName: yup
+      .string()
+      .required('First Name is required')
+      .label('First Name')
+      .trim(),
+
+    lastName: yup
+      .string()
+      .required('Last Name is required')
+      .label('Last Name')
+      .trim(),
+
+    age: yup.string().max(3).required('age is required').label('Age').trim(),
+
+    id: yup
+      .string()
+      .max(10)
+      .required('7 digit student Id is required, format: az01234')
+      .label('Student Id')
+      .trim(),
+  })
+  .test(
+    'global-ok',
+    'you do not fulfill the requirements',
+    (firstName, lastName, age, id) => {},
+  );
 
 export default function UserForm({navigation}) {
   const {SetData} = useGlobal();

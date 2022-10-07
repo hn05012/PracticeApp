@@ -44,16 +44,20 @@ export default function UserData({navigation}) {
 
   const [isChecked, setIsChecked] = useState([]);
 
-  useEffect(() => {
-    console.log('useEffect called');
-    console.log('isChecked after useEffect called: ', isChecked);
-  }, [isChecked]);
+  // useEffect(() => {
+  //   console.log('useEffect called');
+  //   console.log('isChecked after useEffect called: ', isChecked);
+  // }, [isChecked]);
 
   const isCheckedItems = id => {
     if (isChecked.includes(id)) {
-      setIsChecked(current => current.filter(item => item !== id));
+      setIsChecked(current => {
+        current.filter(item => item !== id);
+      });
+      console.log(isChecked.filter(item => item !== id));
     } else {
       setIsChecked([...isChecked, id]);
+      console.log(isChecked);
     }
   };
 
